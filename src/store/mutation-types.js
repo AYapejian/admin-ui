@@ -1,3 +1,5 @@
+export const APP_CHANGE_THEME = 'APP_CHANGE_THEME'
+
 export const USER_LOGIN  = 'USER_LOGIN'
 export const USER_LOGOUT = 'USER_LOGOUT'
 

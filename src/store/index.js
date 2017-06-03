@@ -9,6 +9,10 @@ Vue.use(Vuex)
 const initAccessToken = localStorage.getItem('accessToken')
 
 let state = {
+    app: {
+        title: 'Admin UI',
+        theme: 'dark'
+    },
     isAuthenticated: initAccessToken || false,
     accessToken:     initAccessToken,
     user:            {

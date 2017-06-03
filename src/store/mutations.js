@@ -1,6 +1,10 @@
 import * as types from './mutation-types'
 
 const _mutations = {
+    [types.APP_CHANGE_THEME] (state, data) {
+        state.app.theme = data.theme
+    },
+
     [types.API_REQUEST_START] (state, data) {
         state.apiStatus = {
             loading: true,

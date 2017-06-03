@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer temporary v-model="myIsVisible" :mini-variant="myIsMini" dark>
+    <v-navigation-drawer temporary v-model="myIsVisible" :mini-variant="myIsMini">
 
         <v-list class="pa-0">
             <v-list-item v-if="myIsMini">
@@ -52,40 +52,36 @@ export default {
         return {
             myIsVisible: this.isVisible,
             myIsMini:    this.isMini
-        };
+        }
     },
     props: {
-        user:       { type: Object,  default: () => ({ name: 'Test User', avatarUrl: 'https://randomuser.me/api/portraits/men/85.jpg' }) },
-        navItems:   { type: Array,   default: () => [{ icon: 'home', title:          'Home' }] },
-        isVisible:  { type: Boolean, default: true },
-        isMini:     { type: Boolean, default: true }
+        user:      { type: Object,  default: () => ({ name: 'Test User', avatarUrl: 'https://randomuser.me/api/portraits/men/85.jpg' }) },
+        navItems:  { type: Array,   default: () => [{ icon: 'home', title: 'Home' }] },
+        isVisible: { type: Boolean, default: true },
+        isMini:    { type: Boolean, default: true }
     },
     watch: {
-        // Emit to parent when nav drawer is opened / closed
-        // myIsVisible: function(val, oldVal) {
-
-        //     this.$emit('app_nav_drawer:toggled', val);
-        // },
-        // Watch the parent components passed in props for changes
         isVisible: function(val) {
-            this.myIsVisible = val;
+            this.myIsVisible = val
+            // FIXME: This hangs the browser tab, endless call cycle between emit/listener, need to fix
+            // this.$emit('app_nav_drawer:toggled', val)
         },
         isMini: function(val) {
-            this.myIsMini = val;
+            this.myIsMini = val
         }
     },
     computed: {
-        userAvatar() { return this.user.avatarUrl; },
-        userName()   { return this.user.name;      }
+        userAvatar() { return this.user.avatarUrl },
+        userName()   { return this.user.name      }
     },
     methods: {
         toggleMini(isMini) {
-            this.myIsMini = !isMini;
+            this.myIsMini = !isMini
         }
     },
     mounted () {
-        this.$emit('navdrawer:mounted');
-    },
+        this.$emit('navdrawer:mounted')
+    }
 }
 </script>
 
