@@ -1,4 +1,4 @@
-import store from '../config/store'
+import store from '../store'
 
 // If user is not authenticated redirect to login page and set
 // param to redirect to original target page after authenticating

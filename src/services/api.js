@@ -1,53 +1,51 @@
 import axios from 'axios'
+import store from '../store'
+import * as types from '../store/mutation-types'
+const apiClient = axios.create({ baseURL: 'http://localhost:3001/api' })
 
-const clients = {
-    mock: axios.create({ baseURL: 'https://jsonplaceholder.typicode.com/' }),
-    api:  axios.create({ baseURL: 'api' })
+// These can be used for setting store state's via dispatch
+// which can be watched as hooks for things like app loading indicators
+const requestStart     = (config)   => {
+    store.commit(types.API_REQUEST_START, {
+        url:    config.url,
+        method: config.method
+    })
+    return config
+}
+const responseFinished = (response) => {
+    store.commit(types.API_REQUEST_END, {
+        url:        response.config.url,
+        status:     response.status,
+        statusText: response.statusText,
+        data:       response.data
+    })
+    return response
+}
+const responseError    = (errData)    => {
+    const config   = errData.config
+    const response = errData.response || {}
+
+    store.commit(types.API_REQUEST_ERROR, {
+        url:          config.url,
+        status:       response.status,
+        statusText:   response.statusText,
+        errorMessage: errData.message,
+        data:         response.data
+    })
+    return Promise.reject(errData)
 }
 
-
-const requestStart     = (config)   => config
-const responseFinished = (response) => response
-const responseError    = (error)    => error
-
-
-clients.mock.interceptors.request.use(requestStart)
-clients.mock.interceptors.response.use(responseFinished, responseError)
-
-clients.api.interceptors.request.use(requestStart)
-clients.api.interceptors.response.use(responseFinished, responseError)
-
-const mock = {
-    getData: (prop, delay) => {
-        return new Promise((resolve) => {
-            setTimeout(() => (resolve(mock[prop])), delay || 300)
-        })
-    },
-    login: {
-        status: 200,
-        data:   {
-            user: {
-                email: 'j.doe@doe.com',
-                name:  { first: 'John', last: 'Doe' }
-            },
-            accessToken: '12345'
-        }
-    },
-    logout: { status: 200, data: {} }
-}
+apiClient.interceptors.request.use(requestStart)
+apiClient.interceptors.response.use(responseFinished, responseError)
 
 export const login = function login({ email, password }) {
-    return mock.getData('login').then(res => res.data)
-    // return apiClient.post('/auth/login', { email, password })
-    //     .then(result => {
-    //         return result.data
-    //     })
+    // NOTE: Change this to POST when not using mock api
+    return apiClient.get('/login').then(res => res.data)
 }
 
 export const logout = function logout() {
-    return mock.getData('logout').then(res => res.data)
-    // return apiClient.delete('/login')
-    //     .then(result => {
-    //         return result.data
-    //     })
+    // NOTE: Change this to DELETE when not using mock api
+    return apiClient.get('/login').then(res => res.data)
 }
+
+export const me = () => apiClient.get('/me')

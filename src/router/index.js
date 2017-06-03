@@ -15,5 +15,7 @@ export default new Router({
     routes:             [
         { path: '/',      name: 'Hello', component: Home, beforeEnter: requireAuth },
         { path: '/login', name: 'Login', component: Login, beforeEnter: afterAuth   }
+        // { path: '/login', name: 'Login', component: Login },
+        // { path: '/',      name: 'Hello', component: Home  }
     ]
 })

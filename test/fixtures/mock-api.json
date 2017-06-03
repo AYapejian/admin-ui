@@ -1,0 +1,25 @@
+{
+  "login": {
+      "user": {
+        "email": "j.doe@doe.com",
+        "name": {
+          "first": "John",
+          "last": "Doe"
+        }
+      },
+      "accessToken": "12345"
+  },
+  "logout": {
+    "status": 200,
+    "data": {}
+  },
+  "me": {
+    "user": {
+      "email": "j.doe@doe.com",
+      "name": {
+        "first": "John",
+        "last": "Doe"
+      }
+    }
+  }
+}

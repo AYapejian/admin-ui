@@ -51,6 +51,20 @@
                 </form>
             </v-card-text>
         </v-card>
+
+        <v-dialog lazy v-model="loginDialogVisible">
+            <v-card>
+                <v-card-row>
+                    <v-card-title>{{ $t('login.dialogTitle') }}</v-card-title>
+                </v-card-row>
+                <v-card-row>
+                    <v-card-text>{{ $t('login.dialogAuthMessage') }}</v-card-text>
+                </v-card-row>
+                <v-card-row actions>
+                    <v-btn class="white--text" flat @click.native="onLoginDialogOk">{{ $t('login.dialogOk') }}</v-btn>
+                </v-card-row>
+            </v-card>
+        </v-dialog>
     </v-layout>
 </template>
 
@@ -61,9 +75,10 @@ export default {
     name: 'Login',
     data () {
         return {
-            isLoggingIn:  false,
-            showPassword: false,
-            form:         {
+            isLoggingIn:        false,
+            showPassword:       false,
+            loginDialogVisible: false,
+            form:               {
                 email:    '',
                 password: ''
             }
@@ -82,13 +97,18 @@ export default {
             if (this.isLoginDisabled) { return }
             this.isLoggingIn = true
 
-            const result = await this.apiLogin({ email: this.form.email, password: this.form.password })
-            this.isLoggingIn = false
-            if (!result.success) {
-                // TODO: notify
-                return
+            try {
+                await this.apiLogin({ email: this.form.email, password: this.form.password })
+                this.$router.push('/')
+            } catch (e) {
+                // Check for error type and notify (ie. auth error vs network error)
+                this.loginDialogVisible = true
+                this.$nextTick(() => console.warn(e))   // Trying to smooth out transition, probably not needed here
             }
-            this.$router.push('/')
+            this.isLoggingIn = false
+        },
+        onLoginDialogOk() {
+            this.loginDialogVisible = false
         }
     }
 }
