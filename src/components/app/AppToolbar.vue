@@ -2,11 +2,11 @@
     <v-toolbar fixed light>
         <v-toolbar-side-icon light @click.native.stop="toggleAppNavBar"></v-toolbar-side-icon>
 
-        <v-toolbar-title>{{ toolbarTitle }}</v-toolbar-title>
+        <v-toolbar-title>{{ routeMetadata.title }}</v-toolbar-title>
 
-        <v-toolbar-items>
-            <v-toolbar-item>{{ toolbarSubTitle }}</v-toolbar-item>
-        </v-toolbar-items>
+        <!-- <v-toolbar-items>
+            <v-toolbar-item>{{ routeMetadata.title }}</v-toolbar-item>
+        </v-toolbar-items> -->
     </v-toolbar>
 </template>
 
@@ -25,8 +25,8 @@ export default {
         }
     },
     computed: {
-        toolbarTitle ()   { return this.$store.state.app.title },
-        toolbarSubTitle() { return this.$route.name },
+        toolbarTitle ()   { return this.$store.state.app.title  },
+        routeMetadata()   { return this.$store.state.route.meta },
         navDrawerState()  { return this.$store.state.app.navDrawerState }
     }
 }

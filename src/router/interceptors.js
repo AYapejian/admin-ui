@@ -4,7 +4,6 @@ import store from '../store'
 // param to redirect to original target page after authenticating
 export const requireAuth = (to, from, next) => {
     const isAuthenticated = store.state.isAuthenticated
-    console.log('requireAuth', isAuthenticated)
     // If not authenticated send to login page
     if (isAuthenticated) {
         next()
@@ -20,7 +19,6 @@ export const requireAuth = (to, from, next) => {
 // and if not goes to root /
 export const afterAuth = (to, from, next) => {
     const isAuthenticated = store.state.isAuthenticated
-    console.log('afterAuth', isAuthenticated)
     // If Authenticated allow to proceed else send back to 'from' path
     if (!isAuthenticated) {
         next()

@@ -9,6 +9,17 @@
     * All strings should refer to the message map within components by `{{ $t('login.message') }}`
     * TODO: For interpolation that includes HTML look at [this](https://kazupon.github.io/vue-i18n/en/interpolation.html)
 
+* Routing
+    * Routes are setup in `src/components/router`
+    * Route metadata is used in certain portions of the app ( Toolbar for current view name for instance )
+    * The current route state is always available in vuex as `store.state.route`
+    * To add a new route:
+        - First add it's vue component
+        - Add a route metadata definition in `src/components/router/route-metadata`
+        - Add the route in `src/components/router/index.js`
+        - Add a nav menu item if needed
+            - _TODO: Derive nav drawer menu from route metadata file_
+
 ## Build Setup
 
 ``` bash

@@ -12,9 +12,9 @@ let state = {
     app: {
         title:          'Admin UI',
         theme:          'dark',
-        navDrawerState: { visible: true, mini: false }
+        navDrawerState: { visible: true, mini: true }
     },
-    isAuthenticated: initAccessToken || false,
+    isAuthenticated: !!initAccessToken,
     accessToken:     initAccessToken,
     user:            {
         name: ''

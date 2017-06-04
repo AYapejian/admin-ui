@@ -1,6 +1,6 @@
 <template>
     <v-layout column align-center>
-        <router-view></router-view>
+        Testing
     </v-layout>
 </template>
 

@@ -1,22 +1,33 @@
-/* eslint-disable standard/object-curly-even-spacing */
-import Vue       from 'vue'
-import Router    from 'vue-router'
-import Login     from '@/components/Login'
-import Dashboard from '@/components/views/Dashboard'
-import Settings  from '@/components/views/Settings'
-
+import Vue    from 'vue'
+import Router from 'vue-router'
+import { getRouteMetadata } from './route-metadata'
 import { requireAuth, afterAuth } from './interceptors'
 
 Vue.use(Router)
+
+function route (path, componentPath, beforeEnter) {
+    const metadata = getRouteMetadata(path)
+    const route = {
+        path:      path,
+        meta:      metadata,
+        component: () => import(`../components/${componentPath}.vue`)
+    }
+    // Setup the interceptor to validate user is authorized prior to rendering
+    if (metadata.requiresAuth) { route.beforeEnter = requireAuth }
+    // Allow for manually setting the interceptor, mostly for login redirect to
+    // wherever was trying to be viewed when not logged in
+    if (beforeEnter) { route.beforeEnter = beforeEnter }
+    return route
+}
 
 export default new Router({
     mode:           'history',
     base:           __dirname,
     scrollBehavior: () => ({ y: 0 }),
     routes:         [
-        { path: '/login',     name: 'Login',     component: Login,     beforeEnter: afterAuth   },
-        { path: '/dashboard', name: 'Dashboard', component: Dashboard, beforeEnter: requireAuth },
-        { path: '/settings',  name: 'Settings',  component: Settings,  beforeEnter: requireAuth },
-        { path: '*', redirect: '/dashboard' }
+        route('/login',     'Login', afterAuth),
+        route('/dashboard', 'views/Dashboard'),
+        route('/settings',  'views/Settings'),
+        { path: '/', redirect: '/dashboard' }
     ]
 })
