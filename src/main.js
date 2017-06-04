@@ -3,7 +3,7 @@
 import Vue         from 'vue'
 import Vuetify     from 'vuetify'
 import VueI18n     from 'vue-i18n'
-import VeeValidate from 'vee-validate'
+// import VeeValidate from 'vee-validate'
 import store       from './store'
 import * as localeMessages from './locales'
 
@@ -15,7 +15,7 @@ Vue.use(VueI18n)
 // TODO: This isn't being used yet for validation
 // there are ways to include in component but need
 // to research a better pattern for it or see if support is inbound
-Vue.use(VeeValidate)
+// Vue.use(VeeValidate)
 Vue.config.productionTip = false
 
 console.log(localeMessages)

@@ -3,15 +3,21 @@
         <app-nav-drawer
             v-if="notLoginPage"
             :is-visible="drawer"
-            @app_nav_drawer:toggled="drawer = !drawer"></app-nav-drawer>
+            @app_nav_drawer:toggled="drawer = !drawer">
+        </app-nav-drawer>
 
         <v-toolbar fixed light v-if="notLoginPage">
             <v-toolbar-side-icon light @click.native.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <v-toolbar-title>{{ app.title }}</v-toolbar-title>
+            <v-toolbar-title>{{ toolbarTitle }}</v-toolbar-title>
+            <v-toolbar-items>
+                <v-toolbar-item>{{ toolbarSubTitle }}</v-toolbar-item>
+            </v-toolbar-items>
         </v-toolbar>
         <main>
             <v-container fluid>
-                <router-view></router-view>
+                <transition name="slide">
+                    <router-view></router-view>
+                </transition>
             </v-container>
         </main>
          <v-footer class="grey darken-4"></v-footer>
@@ -27,6 +33,8 @@ export default {
     components: { AppNavDrawer },
     computed:   {
         ...mapState(['app']),
+        toolbarTitle () { return this.app.title },
+        toolbarSubTitle() { return this.$route.name },
 
         // True for all routes except 'Login', used to hide certain elements
         // Could also use the app state of isAuthenticated, might be better ways
@@ -39,12 +47,8 @@ export default {
     data () {
         return {
             drawer: false,
-            items:  [
-                { title: 'Home', icon: 'dashboard' },
-                { title: 'About', icon: 'question_answer' }
-            ],
-            mini:  false,
-            right: null
+            mini:   false,
+            right:  null
         }
     },
     methods: {

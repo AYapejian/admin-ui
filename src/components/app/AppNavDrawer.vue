@@ -1,7 +1,12 @@
 <template>
-    <v-navigation-drawer temporary v-model="myIsVisible" :mini-variant="myIsMini">
+    <v-navigation-drawer
+    persistent
+    enable-resize-watcher
+    v-model="myIsVisible"
+    :mini-variant="myIsMini">
 
         <v-list class="pa-0">
+            <!-- Chevron when mini nav -->
             <v-list-item v-if="myIsMini">
                 <v-list-tile @click.native.stop="toggleMini(myIsMini)">
                     <v-list-tile-action>
@@ -10,14 +15,17 @@
                 </v-list-tile>
             </v-list-item>
 
+            <!-- User Avatar  -->
             <v-list-item>
                 <v-list-tile avatar tag="div">
                     <v-list-tile-avatar>
                         <img :src="userAvatar" />
                     </v-list-tile-avatar>
+
                     <v-list-tile-content>
                         <v-list-tile-title>{{userName}}</v-list-tile-title>
                     </v-list-tile-content>
+
                     <v-list-tile-action>
                         <v-btn icon light @click.native.stop="toggleMini(myIsMini)">
                             <v-icon>chevron_left</v-icon>
@@ -27,19 +35,22 @@
             </v-list-item>
         </v-list>
 
+        <!-- Nav Items -->
         <v-list class="pt-0" dense>
             <v-divider light></v-divider>
 
-            <v-list-item v-for="item in navItems" :key="item">
+            <router-link tag="v-list-item"
+            v-for="item in navItems" :key="item"
+            :to="item.path">
                 <v-list-tile>
-                    <v-list-tile-action>
+                    <v-list-tile-action class="nav-icon">
                         <v-icon light>{{ item.icon }}</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
                         <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-            </v-list-item>
+            </router-link>
         </v-list>
 
     </v-navigation-drawer>
@@ -51,12 +62,15 @@ export default {
     data: function () {
         return {
             myIsVisible: this.isVisible,
-            myIsMini:    this.isMini
+            myIsMini:    this.isMini,
+            navItems:    [
+                { title: 'Dashboard', path: '/dashboard', icon: 'dashboard' },
+                { title: 'Settings',  path: '/settings',  icon: 'settings' }
+            ]
         }
     },
     props: {
         user:      { type: Object,  default: () => ({ name: 'Test User', avatarUrl: 'https://randomuser.me/api/portraits/men/85.jpg' }) },
-        navItems:  { type: Array,   default: () => [{ icon: 'home', title: 'Home' }] },
         isVisible: { type: Boolean, default: true },
         isMini:    { type: Boolean, default: true }
     },
@@ -85,5 +99,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="stylus">
+@import '../../stylus/_variables'
+
+.router-link-active, .router-link-exact-active i {
+    color: $theme.primary;
+}
 </style>
