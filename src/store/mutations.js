@@ -4,6 +4,9 @@ const _mutations = {
     [types.APP_CHANGE_THEME] (state, data) {
         state.app.theme = data.theme
     },
+    [types.APP_NAV_DRAWER_STATE] (state, data) {
+        state.app.navDrawerState = data
+    },
 
     [types.API_REQUEST_START] (state, data) {
         state.apiStatus = {

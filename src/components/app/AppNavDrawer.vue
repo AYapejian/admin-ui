@@ -2,13 +2,13 @@
     <v-navigation-drawer
     persistent
     enable-resize-watcher
-    v-model="myIsVisible"
-    :mini-variant="myIsMini">
+    v-model="appNavDrawerVisible"
+    :mini-variant="appNavDrawerMini">
 
         <v-list class="pa-0">
             <!-- Chevron when mini nav -->
-            <v-list-item v-if="myIsMini">
-                <v-list-tile @click.native.stop="toggleMini(myIsMini)">
+            <v-list-item v-if="appNavDrawerMini">
+                <v-list-tile @click.native.stop="appNavDrawerMini = !appNavDrawerMini">
                     <v-list-tile-action>
                         <v-icon light>chevron_right</v-icon>
                     </v-list-tile-action>
@@ -27,7 +27,7 @@
                     </v-list-tile-content>
 
                     <v-list-tile-action>
-                        <v-btn icon light @click.native.stop="toggleMini(myIsMini)">
+                        <v-btn icon light @click.native.stop="appNavDrawerMini = !appNavDrawerMini">
                             <v-icon>chevron_left</v-icon>
                         </v-btn>
                     </v-list-tile-action>
@@ -57,44 +57,40 @@
 </template>
 
 <script>
+import { APP_NAV_DRAWER_STATE } from '../../store/mutation-types'
+
 export default {
     name: 'AppNavDrawer',
     data: function () {
         return {
-            myIsVisible: this.isVisible,
-            myIsMini:    this.isMini,
-            navItems:    [
+            navItems: [
                 { title: 'Dashboard', path: '/dashboard', icon: 'dashboard' },
                 { title: 'Settings',  path: '/settings',  icon: 'settings' }
             ]
         }
     },
-    props: {
-        user:      { type: Object,  default: () => ({ name: 'Test User', avatarUrl: 'https://randomuser.me/api/portraits/men/85.jpg' }) },
-        isVisible: { type: Boolean, default: true },
-        isMini:    { type: Boolean, default: true }
-    },
-    watch: {
-        isVisible: function(val) {
-            this.myIsVisible = val
-            // FIXME: This hangs the browser tab, endless call cycle between emit/listener, need to fix
-            // this.$emit('app_nav_drawer:toggled', val)
-        },
-        isMini: function(val) {
-            this.myIsMini = val
-        }
-    },
     computed: {
-        userAvatar() { return this.user.avatarUrl },
-        userName()   { return this.user.name      }
-    },
-    methods: {
-        toggleMini(isMini) {
-            this.myIsMini = !isMini
-        }
-    },
-    mounted () {
-        this.$emit('navdrawer:mounted')
+        appNavDrawerVisible: {
+            get() {
+                return this.navDrawerState.visible
+            },
+            set(val) {
+                const newState = Object.assign({}, this.navDrawerState, { visible: val })
+                this.$store.commit(APP_NAV_DRAWER_STATE, newState)
+            }
+        },
+        appNavDrawerMini: {
+            get() {
+                return this.navDrawerState.mini
+            },
+            set(val) {
+                const newState = Object.assign({}, this.navDrawerState, { mini: val })
+                this.$store.commit(APP_NAV_DRAWER_STATE, newState)
+            }
+        },
+        navDrawerState() { return this.$store.state.app.navDrawerState },
+        userAvatar()     { return this.$store.state.user.avatarUrl     },
+        userName()       { return this.$store.state.user.name          }
     }
 }
 </script>

@@ -10,17 +10,17 @@ const initAccessToken = localStorage.getItem('accessToken')
 
 let state = {
     app: {
-        title: 'Admin UI',
-        theme: 'dark'
+        title:          'Admin UI',
+        theme:          'dark',
+        navDrawerState: { visible: true, mini: false }
     },
     isAuthenticated: initAccessToken || false,
     accessToken:     initAccessToken,
     user:            {
         name: ''
     },
-    viewLoading: false,
-    apiError:    {},
-    apiStatus:   {
+    apiError:  {},
+    apiStatus: {
         loading: false,
         data:    {}
     }

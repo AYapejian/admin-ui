@@ -1,18 +1,8 @@
 <template>
     <v-app dark>
-        <app-nav-drawer
-            v-if="notLoginPage"
-            :is-visible="drawer"
-            @app_nav_drawer:toggled="drawer = !drawer">
-        </app-nav-drawer>
+        <app-nav-drawer v-if="notLoginPage"></app-nav-drawer>
+        <app-toolbar    v-if="notLoginPage"></app-toolbar>
 
-        <v-toolbar fixed light v-if="notLoginPage">
-            <v-toolbar-side-icon light @click.native.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <v-toolbar-title>{{ toolbarTitle }}</v-toolbar-title>
-            <v-toolbar-items>
-                <v-toolbar-item>{{ toolbarSubTitle }}</v-toolbar-item>
-            </v-toolbar-items>
-        </v-toolbar>
         <main>
             <v-container fluid>
                 <transition name="slide">
@@ -26,35 +16,13 @@
 
 
 <script>
-import { mapState } from 'vuex'
 import AppNavDrawer from './components/app/AppNavDrawer.vue'
+import AppToolbar   from './components/app/AppToolbar.vue'
 
 export default {
-    components: { AppNavDrawer },
+    components: { AppNavDrawer, AppToolbar },
     computed:   {
-        ...mapState(['app']),
-        toolbarTitle () { return this.app.title },
-        toolbarSubTitle() { return this.$route.name },
-
-        // True for all routes except 'Login', used to hide certain elements
-        // Could also use the app state of isAuthenticated, might be better ways
-        // using nesting but Vuetify app structures requires element structure that makes
-        // this difficult
-        notLoginPage () {
-            return (this.$route.name !== 'Login')
-        }
-    },
-    data () {
-        return {
-            drawer: false,
-            mini:   false,
-            right:  null
-        }
-    },
-    methods: {
-        setDrawer(data) {
-            console.log('App Nav Drawer Event: ', data)
-        }
+        notLoginPage () { return (this.$route.name !== 'Login') }
     }
 }
 </script>
