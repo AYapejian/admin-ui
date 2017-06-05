@@ -20,11 +20,11 @@
             <v-list-item>
                 <v-list-tile avatar tag="div">
                     <v-list-tile-avatar>
-                        <img :src="userAvatar" />
+                        <img :src="userProfile.avatarUrl" />
                     </v-list-tile-avatar>
 
                     <v-list-tile-content>
-                        <v-list-tile-title>{{userName}}</v-list-tile-title>
+                        <v-list-tile-title>{{userProfile.name.first}}</v-list-tile-title>
                     </v-list-tile-content>
 
                     <v-list-tile-action>
@@ -100,6 +100,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { APP_NAV_DRAWER_STATE } from '../../store/mutation-types'
 
 const navItems = [
@@ -115,13 +116,13 @@ const navItems = [
         title:  'Settings',
         action: 'settings',
         group:  '/settings',
-        href:   '/settings'
+        href:   '/settings',
         // TODO: Figure out using main page link above along with subitem links below
         // currently supports either href in above OR below
-        // items:  [
-        //     { href: '/settings/preferences', title: 'Preferences' },
-        //     { href: '/settings/security',    title: 'Security'    }
-        // ]
+        items:  [
+            { href: '/settings', title: 'Preferences' },
+            { href: '/settings', title: 'Security'    }
+        ]
     }
 ]
 
@@ -133,6 +134,7 @@ export default {
         }
     },
     computed: {
+        ...mapGetters(['userProfile']),
         appNavDrawerVisible: {
             get() {
                 return this.navDrawerState.visible

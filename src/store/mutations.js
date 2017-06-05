@@ -39,6 +39,23 @@ const _mutations = {
         state.user            = {}
         state.accessToken     = null
         localStorage.removeItem('accessToken')
+    },
+    [types.USER_UPDATE_PROFILE] (state, data) {
+        state.user.profile = Object.assign({}, state.user.profile, data)
+    },
+    [types.USER_UPDATE_PREFERENCES] (state, error) {
+        state.user.preferences = Object.assign({}, state.user.preferences, data)
+    },
+    [types.USER_ADD_ALERT] (state, data) {
+        state.user.alerts[data.alertId] = data
+    },
+    [types.USER_REMOVE_ALERT] (state, data) {
+        // This runs into an observer issue with Vue, need to lookup fix
+        // delete state.user.alerts[data.alertId]
+        let alerts = Object.assign({}, state.user.alerts)
+        delete alerts[data.alertId]
+        state.user.alerts = alerts
+
     }
 }
 
