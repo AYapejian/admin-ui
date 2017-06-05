@@ -1,33 +1,47 @@
 import Vue    from 'vue'
 import Router from 'vue-router'
 import { getRouteMetadata } from './route-metadata'
-import { requireAuth, afterAuth } from './interceptors'
+// import { requireAuth, afterAuth } from './interceptors'
 
 Vue.use(Router)
 
-function route (path, componentPath, beforeEnter) {
-    const metadata = getRouteMetadata(path)
-    const route = {
-        path:      path,
-        meta:      metadata,
-        component: () => import(`../components/${componentPath}.vue`)
-    }
-    // Setup the interceptor to validate user is authorized prior to rendering
-    if (metadata.requiresAuth) { route.beforeEnter = requireAuth }
-    // Allow for manually setting the interceptor, mostly for login redirect to
-    // wherever was trying to be viewed when not logged in
-    if (beforeEnter) { route.beforeEnter = beforeEnter }
-    return route
-}
+function getLayoutComponent(compPath) { return () => import(`@/layouts/${compPath}.vue`)    }
+function getViewComponent(compPath)   { return () => import(`@/components/${compPath}.vue`) }
+
+const routeDefinitions = []
+
+routeDefinitions.push({
+    path:      '/login',
+    component: getLayoutComponent('LoginLayout'),
+    // beforeEnter: afterAuth,
+    meta:      getRouteMetadata('/login')
+})
+
+routeDefinitions.push({
+    path:      '/settings',
+    component: getLayoutComponent('SettingsLayout'),
+    meta:      getRouteMetadata('/settings'),
+    // beforeEnter: requireAuth,
+    children:  [
+        { path: '', meta: getRouteMetadata('/settings'), component: getViewComponent('settings/SettingsView') }
+    ]
+})
+
+routeDefinitions.push({
+    path:      '/dashboard',
+    component: getLayoutComponent('DashboardLayout'),
+    meta:      getRouteMetadata('/dashboard'),
+    // beforeEnter: requireAuth,
+    children:  [
+        { path: '', meta: getRouteMetadata('/dashboard'), component: getViewComponent('dashboard/DashboardView') }
+    ]
+})
+
+routeDefinitions.push({ path: '/', redirect: '/dashboard' })
 
 export default new Router({
     mode:           'history',
     base:           __dirname,
     scrollBehavior: () => ({ y: 0 }),
-    routes:         [
-        route('/login',     'Login', afterAuth),
-        route('/dashboard', 'views/Dashboard'),
-        route('/settings',  'views/Settings'),
-        { path: '/', redirect: '/dashboard' }
-    ]
+    routes:         routeDefinitions
 })

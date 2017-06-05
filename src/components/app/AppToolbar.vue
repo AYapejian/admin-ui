@@ -1,9 +1,7 @@
 <template>
-    <v-toolbar fixed light>
+    <v-toolbar fixed light class='app-toolbar'>
         <v-toolbar-side-icon light @click.native.stop="toggleAppNavBar"></v-toolbar-side-icon>
-
-        <v-toolbar-title>{{ routeMetadata.title }}</v-toolbar-title>
-
+        <v-toolbar-title>{{ toolbarTitle }}</v-toolbar-title>
         <!-- <v-toolbar-items>
             <v-toolbar-item>{{ routeMetadata.title }}</v-toolbar-item>
         </v-toolbar-items> -->

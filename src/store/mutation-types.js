@@ -1,4 +1,5 @@
 export const APP_CHANGE_THEME     = 'APP_CHANGE_THEME'
+export const APP_SET_FULLSCREEN   = 'APP_SET_FULLSCREEN'
 export const APP_NAV_DRAWER_STATE = 'APP_NAV_DRAWER_STATE'
 
 export const USER_LOGIN  = 'USER_LOGIN'

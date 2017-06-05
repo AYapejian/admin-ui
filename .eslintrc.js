@@ -21,6 +21,8 @@ module.exports = {
     'no-warning-comments': [0, { 'terms': [ 'todo', 'fixme' ], 'location': 'start' }],
     // allow async-await
     'generator-star-spacing': 0,
+    // Because ocd
+    'standard/object-curly-even-spacing': 0,
 
     'indent': [ 1, 4, {
       'VariableDeclarator': {

@@ -1,12 +1,15 @@
 <template>
-    <v-layout column align-center>
-        Testing
-    </v-layout>
+    <p>Preferences</p>
 </template>
 
 <script>
 export default {
-    name: 'Settings'
+    name: 'SettingsPreferencesTab',
+    data() {
+        return {
+            text: 'testing'
+        }
+    }
 }
 </script>
 

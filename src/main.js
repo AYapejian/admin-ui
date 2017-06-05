@@ -6,6 +6,17 @@ import VueI18n  from 'vue-i18n'
 import { sync } from 'vuex-router-sync'
 import * as localeMessages from './locales'
 
+// TODO: Useful modules
+// DragnDrop: https://github.com/SortableJS/Vue.Draggable
+// Drag/Resize grid (for widgets): https://github.com/jbaysolutions/vue-grid-layout
+// Charts:
+//      - ChartJS:     https://github.com/apertureless/vue-chartjs
+//      - Spark Lines: https://github.com/QingWei-Li/vue-trend
+//      - Spark Bars:  https://github.com/DeviaVir/vue-bar
+// App Progress: https://github.com/rstacruz/nprogress
+// Maps: https://github.com/KoRiGaN/Vue2Leaflet
+// WebWorker: https://github.com/israelss/vue-worker
+
 import App from './App'
 
 import router from './router'

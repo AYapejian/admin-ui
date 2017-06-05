@@ -7,6 +7,9 @@ const _mutations = {
     [types.APP_NAV_DRAWER_STATE] (state, data) {
         state.app.navDrawerState = data
     },
+    [types.APP_SET_FULLSCREEN] (state, data) {
+        state.app.fullscreenEnabled = data.isEnabled
+    },
 
     [types.API_REQUEST_START] (state, data) {
         state.apiStatus = {

@@ -6,21 +6,33 @@ export const routeMetadata = {
     },
     '/dashboard': {
         title:        'Dashboard',
-        description:  'At a glance',
+        icon:         'dashboard',
         requiresAuth: true
     },
     '/settings': {
         title:        'Settings',
         description:  'Set your preferences below',
+        icon:         'settings',
         requiresAuth: true
+    },
+    '/settings/preferences': {
+        title: 'Settings | Preferences'
+    },
+    '/settings/security': {
+        title: 'Settings | Security'
     }
 }
 
 const METADATA_DEFAULTS = {
+    title:        '',
+    description:  '',
+    icon:         '',
     requiresAuth: true
 }
 
 export const getRouteMetadata = function (path) {
-    if (!routeMetadata[path]) { throw new Error(`Route metadata does not exist for path: ${path}`) }
-    return Object.assign({}, METADATA_DEFAULTS, routeMetadata[path])
+    let meta = routeMetadata[path]
+    if (!meta) {  console.warn(`No metadata found for path: ${path}`) }
+    meta = meta || {}
+    return Object.assign({}, METADATA_DEFAULTS, meta)
 }
