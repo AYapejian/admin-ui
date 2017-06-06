@@ -1,30 +1,16 @@
 <template>
-    <v-container fluid>
+    <!--<v-container fluid>-->
         <v-layout row wrap>
-            <v-flex sm12 md12>
+            <v-flex xs12>
                 <v-card>
-                    <v-app top-toolbar id="example-9-1">
+                    <v-app top-toolbar>
                         <v-toolbar>
-                             <v-toolbar-title class="white--text">Update Profile</v-toolbar-title>
+                             <v-toolbar-title class="white--text">Update Preferences</v-toolbar-title>
                         </v-toolbar>
                         <main>
-                            <v-container fluid class="px-3">
+                            <v-container fluid>
                                 <v-layout row wrap>
-                                    <v-flex xs12 md6>
-                                        <v-text-field label="First Name" counter v-model="profile.name.first"></v-text-field>
-                                    </v-flex>
-                                    <v-flex xs12 md6>
-                                        <v-text-field label="Last Name" counter v-model="profile.name.last"></v-text-field>
-                                    </v-flex>
-                                    <v-flex xs12>
-                                        <v-text-field label="Email Address" v-model="profile.email"></v-text-field>
-                                    </v-flex>
-                                    <v-flex xs12 md6>
-                                        <img class="avatar" :src="profile.avatarUrl"></img>
-                                    </v-flex>
-                                    <v-flex xs12 md6>
-                                        <v-text-field label="Avatar URL" v-model="profile.avatarUrl"></v-text-field>
-                                    </v-flex>
+
                                 </v-layout>
                             </v-container>
                         </main>
@@ -32,7 +18,7 @@
                 </v-card>
             </v-flex>
         </v-layout>
-    </v-container>
+    <!--</v-container>-->
 </template>
 
 
@@ -61,22 +47,6 @@ export default {
         userProfile() {
             return this.$store.state.user.profile
         }
-    },
-    computed: {
-
-        // userProfile() {
-        //     const up = JSON.parse(JSON.stringify(this.$store.state.user.profile))
-        //     debugger
-        //     return up
-        // }
-        // userProfileModel: {
-        //    get() { return this.userProfile },
-        //     set(val) {
-        //         debugger
-        //         this.$store.commit(UPDATE_USER, val)
-        //     }
-        // },
-        // ...mapGetters(['userProfile']),
     }
 }
 </script>

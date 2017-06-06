@@ -15,13 +15,15 @@ export const routeMetadata = {
         icon:         'settings',
         requiresAuth: true
     },
-    '/settings/preferences': {
-        title:        'Settings | Preferences',
-        icon:         'settings',
+    '/settings/profile': {
+        title:        'Settings | Profile',
+        icon:         'account_circle',
         requiresAuth: true
     },
-    '/settings/security': {
-        title: 'Settings | Security'
+    '/settings/preferences': {
+        title:        'Settings | Preferences',
+        icon:         'build',
+        requiresAuth: true
     }
 }
 

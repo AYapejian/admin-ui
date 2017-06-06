@@ -24,7 +24,8 @@ routeDefinitions.push({
     // beforeEnter: requireAuth,
     children:  [
         { path: '', meta: getRouteMetadata('/settings'), component: getViewComponent('settings/SettingsView') },
-        { path: '/settings/preferences/', meta: getRouteMetadata('/settings/preferences'), component: getViewComponent('settings/SettingsPreferencesView') }
+        { path: '/settings/profile', meta: getRouteMetadata('/settings/profile'), component: getViewComponent('settings/SettingsProfileView') },
+        { path: '/settings/preferences', meta: getRouteMetadata('/settings/preferences'), component: getViewComponent('settings/SettingsPreferencesView') }
     ]
 })
 

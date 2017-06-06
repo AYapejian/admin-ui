@@ -24,7 +24,7 @@
                     </v-list-tile-avatar>
 
                     <v-list-tile-content>
-                        <v-list-tile-title>{{userProfile.name.first}}</v-list-tile-title>
+                        <v-list-tile-title>Hi {{userProfile.name.first}}</v-list-tile-title>
                     </v-list-tile-content>
 
                     <v-list-tile-action>
@@ -57,7 +57,7 @@
                     </v-list-tile>
 
                     <!-- Subitems -->
-                    <v-list-item v-for="subItem in item.items" :key="subItem">
+                    <v-list-item v-for="subItem in item.items" :key="subItem.title">
                         <v-list-tile
                             :href="subItem.href"
                             :router="!subItem.target"
@@ -66,12 +66,16 @@
                             :exact="true"
                             ripple>
 
+                            <v-list-tile-action v-if="subItem.action">
+                                <v-icon light>{{ subItem.action }}</v-icon>
+                            </v-list-tile-action>
                             <v-list-tile-content>
                                 <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
                             </v-list-tile-content>
-                            <v-list-tile-action v-if="subItem.action">
-                                <v-icon light class="success--text">{{ subItem.action }}</v-icon>
-                            </v-list-tile-action>
+                            <!--<v-list-tile-action v-if="subItem.action">
+                                <span class="white--text">1</span>
+                                <v-icon light class="success--text test">{{ subItem.action }}</v-icon>
+                            </v-list-tile-action>-->
                         </v-list-tile>
                     </v-list-item>
                 </v-list-group>
@@ -89,7 +93,7 @@
                         <v-list-tile-content>
                             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                         </v-list-tile-content>
-                        <v-list-tile-action v-if="item.subAction">
+                        <v-list-tile-action v-if="item.action">
                             <v-icon light class="success--text">{{ item.subAction }}</v-icon>
                         </v-list-tile-action>
                     </v-list-tile>
@@ -112,6 +116,12 @@ const navItems = [
         group:  'dashboard',
         href:   '/dashboard'
     },
+    {
+        title:  'Users',
+        action: 'face',
+        group:  'Users',
+        href:   '/users'
+    },
     { divider: true },
     {
         title:  'Settings',
@@ -121,8 +131,8 @@ const navItems = [
         // TODO: Figure out using main page link above along with subitem links below
         // currently supports either href in above OR below
         items:  [
-            { href: '/settings/preferences', title: 'Preferences' },
-            { href: '/settings', title: 'Security'    }
+            { href: '/settings/profile',     title: 'Profile',     action: 'account_circle' },
+            { href: '/settings/preferences', title: 'Preferences', action: 'build'          }
         ]
     }
 ]
