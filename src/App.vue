@@ -8,7 +8,7 @@
         <main id="app-main">
             <app-section-toolbar v-if="requiresAuth" :title="routeMeta.title" :icon="routeMeta.icon"></app-section-toolbar>
 
-            <v-container>
+            <v-container fluid>
                 <transition name="slide" mode="out-in">
                     <router-view></router-view>
                 </transition>

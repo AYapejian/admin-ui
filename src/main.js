@@ -4,6 +4,7 @@ import Vue      from 'vue'
 import Vuetify  from 'vuetify'
 import VueI18n  from 'vue-i18n'
 import { sync } from 'vuex-router-sync'
+
 import * as localeMessages from './locales'
 
 // TODO: Useful modules
@@ -11,8 +12,7 @@ import * as localeMessages from './locales'
 // Drag/Resize grid (for widgets): https://github.com/jbaysolutions/vue-grid-layout
 // Charts:
 //      - ChartJS:     https://github.com/apertureless/vue-chartjs
-//      - Spark Lines: https://github.com/QingWei-Li/vue-trend
-//      - Spark Bars:  https://github.com/DeviaVir/vue-bar
+//      - Smoothie     import smoothie from 'smoothie'
 // App Progress: https://github.com/rstacruz/nprogress
 // Maps: https://github.com/KoRiGaN/Vue2Leaflet
 // WebWorker: https://github.com/israelss/vue-worker

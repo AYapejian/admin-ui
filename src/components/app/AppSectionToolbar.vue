@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar class="transparent elevation-0">
+    <v-toolbar class="transparent elevation-0 app-section-toolbar">
         <v-icon v-if="icon">{{ icon }}</v-icon>
         <v-toolbar-title class="title">{{ title }}</v-toolbar-title>
 
@@ -35,7 +35,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
+.app-section-toolbar
+    z-index: 1
 .section-search
     max-width: 200px
 button
