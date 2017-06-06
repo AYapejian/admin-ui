@@ -63,6 +63,7 @@
                             :router="!subItem.target"
                             :disabled="subItem.disabled"
                             :target="subItem.target"
+                            :exact="true"
                             ripple>
 
                             <v-list-tile-content>
@@ -120,7 +121,7 @@ const navItems = [
         // TODO: Figure out using main page link above along with subitem links below
         // currently supports either href in above OR below
         items:  [
-            { href: '/settings', title: 'Preferences' },
+            { href: '/settings/preferences', title: 'Preferences' },
             { href: '/settings', title: 'Security'    }
         ]
     }

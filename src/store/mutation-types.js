@@ -5,8 +5,7 @@ export const APP_NAV_DRAWER_STATE = 'APP_NAV_DRAWER_STATE'
 export const USER_LOGIN        = 'USER_LOGIN'
 export const USER_LOGOUT       = 'USER_LOGOUT'
 
-export const USER_UPDATE_PROFILE     = 'USER_UPDATE_PROFILE'
-export const USER_UPDATE_PREFERENCES = 'USER_UPDATE_PROFILE'
+export const UPDATE_USER = 'UPDATE_USER'
 
 export const USER_ADD_ALERT    = 'USER_ADD_ALERT'
 export const USER_REMOVE_ALERT = 'USER_REMOVE_ALERT'

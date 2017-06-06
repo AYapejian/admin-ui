@@ -40,11 +40,11 @@ const _mutations = {
         state.accessToken     = null
         localStorage.removeItem('accessToken')
     },
-    [types.USER_UPDATE_PROFILE] (state, data) {
-        state.user.profile = Object.assign({}, state.user.profile, data)
-    },
-    [types.USER_UPDATE_PREFERENCES] (state, error) {
-        state.user.preferences = Object.assign({}, state.user.preferences, data)
+    [types.UPDATE_USER] (state, data) {
+        const userCopy = JSON.parse(JSON.stringify(state.user));
+        const profileCopy = JSON.parse(JSON.stringify(data));
+        userCopy.profile = Object.assign(userCopy.profile, profileCopy)
+        state.user = userCopy
     },
     [types.USER_ADD_ALERT] (state, data) {
         state.user.alerts[data.alertId] = data

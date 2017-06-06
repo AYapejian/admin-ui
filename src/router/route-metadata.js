@@ -16,7 +16,9 @@ export const routeMetadata = {
         requiresAuth: true
     },
     '/settings/preferences': {
-        title: 'Settings | Preferences'
+        title:        'Settings | Preferences',
+        icon:         'settings',
+        requiresAuth: true
     },
     '/settings/security': {
         title: 'Settings | Security'
